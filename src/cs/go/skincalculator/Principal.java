@@ -6,6 +6,7 @@
 package cs.go.skincalculator;
 
 import java.util.Iterator;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -23,8 +24,11 @@ public class Principal extends javax.swing.JFrame {
     
     public Principal() {
         initComponents();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getResource("/images/csgo-icon-42843.png")).getImage());
         this.setLocationRelativeTo(null);
         this.setTitle("CS Go SkinCalculator");
+        panelError.setVisible(false);
         floats = new double[10];
         prices = new double[10];
     }
@@ -85,11 +89,11 @@ public class Principal extends javax.swing.JFrame {
         float11 = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         floatMax = new javax.swing.JTextField();
+        panelError = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(836, 542));
         setMinimumSize(new java.awt.Dimension(836, 542));
-        setPreferredSize(new java.awt.Dimension(836, 542));
         setResizable(false);
         setSize(new java.awt.Dimension(836, 542));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -286,6 +290,19 @@ public class Principal extends javax.swing.JFrame {
         });
         getContentPane().add(floatMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 70, -1));
 
+        panelError.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(255, 0, 0)));
+        panelError.setMaximumSize(new java.awt.Dimension(330, 100));
+        panelError.setMinimumSize(new java.awt.Dimension(330, 100));
+        panelError.setPreferredSize(new java.awt.Dimension(330, 100));
+        panelError.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel20.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel20.setText("Some fields have not been filled!");
+        panelError.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 300, -1));
+
+        getContentPane().add(panelError, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 400, 320, 90));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -298,6 +315,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_float2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
         //all prices of the weapons are obtained
         prices[0]=Double.parseDouble( price1.getText());
         prices[1]=Double.parseDouble( price2.getText());
@@ -340,6 +358,13 @@ public class Principal extends javax.swing.JFrame {
         String condition = showCondition(calculoFloat/100000);
         //show the condition
         conditionResult.setText(condition);
+        }catch(Exception e){
+            panelError.setVisible(true);
+            try{
+                Thread.sleep(500);
+            }catch(InterruptedException f){}
+            panelError.setVisible(false);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
     
     private String showCondition(double num){
@@ -428,6 +453,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -437,6 +463,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel panelError;
     private javax.swing.JTextField price1;
     private javax.swing.JTextField price10;
     private javax.swing.JTextField price2;
